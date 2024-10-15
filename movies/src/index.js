@@ -6,14 +6,14 @@ import MoviePage from "./pages/movieDetailsPage";
 import FavoriteMoviesPage from "./pages/favoriteMoviesPage";
 
 
-const images = [
+/*const images = [
   "/kOVEVeg59E0wsnXmF9nrh6OmWII.jpg",
   "/v1QQKq8M0fWxMgSdGOX1aCv8qMB.jpg",
   "/2iGN0aKHJYD0xQydlfuCUAcgNbO.jpg",
   "/rjBwhsOzHKUw2NIOrE7aMqjfe6s.jpg",
-]
+]*/
 
-const sample = {
+/*const sample = {
   adult: false,
   backdrop_path: "/5Iw7zQTHVRBOYpA0V6z0yypOPZh.jpg",
   belongs_to_collection: {
@@ -92,9 +92,9 @@ const sample = {
   video: false,
   vote_average: 7,
   vote_count: 9692,
-};
+};*/
 
-const movies = [sample, sample, sample, sample, sample, sample, sample];
+//const movies = [sample, sample, sample, sample, sample, sample, sample];
 const App = () => {
   return (
     <BrowserRouter>
