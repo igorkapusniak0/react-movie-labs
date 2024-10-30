@@ -15,8 +15,11 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
 const SiteHeader = ({ history }) => {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+  const [anchorElMedia, setAnchorElMedia] = useState(null);
+  const [anchorElMenu, setAnchorElMenu] = useState(null);
+
+  const openMedia = Boolean(anchorElMedia);
+  const openMenu = Boolean(anchorElMenu);
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -24,24 +27,72 @@ const SiteHeader = ({ history }) => {
   const navigate = useNavigate();
 
   const menuOptions = [
-    { label: "Home", path: "/" },
+    { label: "Home", path: "/movies" },
     { label: "Favorites", path: "/movies/favorites" },
     { label: "Upcomng", path: "/movies/upcoming" },
     { label: "Option 4", path: "/" },
   ];
 
+  const mediaOptions = [
+    { label: "Movies", path: "/movies/" },
+    { label: "Shows", path: "/shows/" },
+
+  ];
+
   const handleMenuSelect = (pageURL) => {
     navigate(pageURL, { replace: true });
+    setAnchorElMenu(null);
+  };
+  const handleMediaSelect = (pageURL) => {
+    navigate(pageURL, { replace: true });
+    setAnchorElMedia(null);
   };
 
   const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
+    setAnchorElMenu(event.currentTarget);
+  };
+  const handleMedia = (event) => {
+    setAnchorElMedia(event.currentTarget);
   };
 
   return (
     <>
       <AppBar position="fixed" color="secondary">
         <Toolbar>
+          <IconButton
+                  aria-label="menu"
+                  aria-controls="media-menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleMedia}
+                  color="inherit"
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Menu
+                  id="media-menu-appbar"
+                  anchorEl={anchorElMedia}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={openMedia}
+                  onClose={() => setAnchorElMedia(null)}
+                >
+                  {mediaOptions.map((opt) => (
+                    <MenuItem
+                      key={opt.label}
+                      onClick={() => handleMediaSelect(opt.path)}
+                    >
+                      {opt.label}
+                    </MenuItem>
+                  ))}
+                </Menu>
+             
           <Typography variant="h4" sx={{ flexGrow: 1 }}>
             TMDB Client
           </Typography>
@@ -61,7 +112,7 @@ const SiteHeader = ({ history }) => {
                 </IconButton>
                 <Menu
                   id="menu-appbar"
-                  anchorEl={anchorEl}
+                  anchorEl={anchorElMenu}
                   anchorOrigin={{
                     vertical: "top",
                     horizontal: "right",
@@ -71,8 +122,8 @@ const SiteHeader = ({ history }) => {
                     vertical: "top",
                     horizontal: "right",
                   }}
-                  open={open}
-                  onClose={() => setAnchorEl(null)}
+                  open={openMenu}
+                  onClose={() => setAnchorElMenu(null)}
                 >
                   {menuOptions.map((opt) => (
                     <MenuItem

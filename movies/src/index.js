@@ -1,6 +1,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import HomePage from "./pages/homePage";
+import ShowsHomePage from "./pages/showHomePage";
 import MoviePage from "./pages/movieDetailsPage";
 import FavoriteMoviesPage from "./pages/favoriteMoviesPage";
 import UpcomingMoviesPage from "./pages/upcomingMoviesPage";
@@ -32,10 +33,11 @@ const App = () => {
             <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
             <Route path="/reviews/:id" element={ <MovieReviewPage /> } />
             <Route path="/movies/:id" element={<MoviePage />} />
-            <Route path="/" element={<HomePage />} />
+            <Route path="/movies" element={<HomePage />} />
+            <Route path="/shows" element={<ShowsHomePage />} />
             <Route path="/reviews/form" element={ <AddMovieReviewPage /> } />
             <Route path="/movies/upcoming" element={<UpcomingMoviesPage/>}/>
-            <Route path="*" element={ <Navigate to="/" /> } />
+            <Route path="*" element={ <Navigate to="/movies" /> } />
           </Routes>
         </MoviesContextProvider>
       </BrowserRouter>
