@@ -17,6 +17,7 @@ const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 const SiteHeader = ({ history }) => {
   const [anchorElMedia, setAnchorElMedia] = useState(null);
   const [anchorElMenu, setAnchorElMenu] = useState(null);
+  const [selectedMedia, setSelectedMedia] = useState("Movies");
 
   const openMedia = Boolean(anchorElMedia);
   const openMenu = Boolean(anchorElMenu);
@@ -26,11 +27,18 @@ const SiteHeader = ({ history }) => {
   
   const navigate = useNavigate();
 
-  const menuOptions = [
+  const menuMovieOptions = [
     { label: "Home", path: "/movies" },
     { label: "Favorites", path: "/movies/favorites" },
     { label: "Upcomng", path: "/movies/upcoming" },
-    { label: "Option 4", path: "/" },
+    { label: "Top Rated", path: "/movies/top_rated" },
+  ];
+
+  const menuShowOptions = [
+    { label: "Home", path: "/shows" },
+    { label: "Favorites", path: "/shows/favorites" },
+    { label: "Upcomng", path: "/shows/upcoming" },
+    { label: "Top Rated", path: "/shows/top_rated" },
   ];
 
   const mediaOptions = [
@@ -43,7 +51,8 @@ const SiteHeader = ({ history }) => {
     navigate(pageURL, { replace: true });
     setAnchorElMenu(null);
   };
-  const handleMediaSelect = (pageURL) => {
+  const handleMediaSelect = (pageURL, mediaLabel) => {
+    setSelectedMedia(mediaLabel);
     navigate(pageURL, { replace: true });
     setAnchorElMedia(null);
   };
@@ -54,6 +63,8 @@ const SiteHeader = ({ history }) => {
   const handleMedia = (event) => {
     setAnchorElMedia(event.currentTarget);
   };
+
+  const currentMenuOptions = selectedMedia === "Movies"? menuMovieOptions : menuShowOptions;
 
   return (
     <>
@@ -86,7 +97,7 @@ const SiteHeader = ({ history }) => {
                   {mediaOptions.map((opt) => (
                     <MenuItem
                       key={opt.label}
-                      onClick={() => handleMediaSelect(opt.path)}
+                      onClick={() => handleMediaSelect(opt.path, opt.label)}
                     >
                       {opt.label}
                     </MenuItem>
@@ -97,7 +108,7 @@ const SiteHeader = ({ history }) => {
             TMDB Client
           </Typography>
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            All you ever wanted to know about Movies!
+            All you ever wanted to know about {selectedMedia}!
           </Typography>
             {isMobile ? (
               <>
@@ -125,7 +136,7 @@ const SiteHeader = ({ history }) => {
                   open={openMenu}
                   onClose={() => setAnchorElMenu(null)}
                 >
-                  {menuOptions.map((opt) => (
+                  {currentMenuOptions.map((opt) => (
                     <MenuItem
                       key={opt.label}
                       onClick={() => handleMenuSelect(opt.path)}
@@ -137,7 +148,7 @@ const SiteHeader = ({ history }) => {
               </>
             ) : (
               <>
-                {menuOptions.map((opt) => (
+                {currentMenuOptions.map((opt) => (
                   <Button
                     key={opt.label}
                     color="inherit"
