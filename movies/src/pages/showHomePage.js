@@ -1,9 +1,9 @@
 import React from "react";
 import { getShows } from "../api/tmdb-api";
-import PageTemplate from '../components/templateMovieListPage';
+import PageTemplate from '../components/templateShowListPage';
 import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
-import AddToFavoritesIcon from '../components/cardIcons/addToFavorites'
+import AddToFavoritesIcon from '../components/cardIconsShow/addToFavorites'
 
 const ShowsHomePage = (props) => {
 
@@ -29,7 +29,7 @@ const ShowsHomePage = (props) => {
   return (
     <PageTemplate
       title="Discover Shows"
-      movies={shows}
+      shows={shows}
       action={(show) => {
         return <AddToFavoritesIcon show={show} />
       }}

@@ -1,9 +1,9 @@
 import React from "react";
 import { getUpcomingShows } from "../api/tmdb-api";
-import PageTemplate from '../components/templateMovieListPage';
+import PageTemplate from '../components/templateShowListPage';
 import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
-import AddToPlaylistIcon from '../components/cardIcons/playlistAdd';
+import AddToPlaylistIcon from '../components/cardIconsShow/playlistAdd';
 
 const UpcomingShowsPage = (props) => {
 
@@ -28,9 +28,9 @@ const UpcomingShowsPage = (props) => {
   return (
     <PageTemplate
       title="Upcoming Shows"
-      movies={shows}
+      shows={shows}
       action={(show) => {
-        return <AddToPlaylistIcon movie={show} />
+        return <AddToPlaylistIcon show={show} />
       }}
     />
 );
