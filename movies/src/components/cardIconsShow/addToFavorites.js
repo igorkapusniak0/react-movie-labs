@@ -9,6 +9,7 @@ const AddToFavoritesIcon = ({ show }) => {
   const handleAddToFavorites = (e) => {
     e.preventDefault();
     context.addToFavorites(show);
+    console.log(show)
   };
 
   return (

@@ -10,11 +10,13 @@ import WriteReview from "../components/cardIconsShow/writeReview";
 const FavoriteShowsPage = () => {
   const {favorites: showIds } = useContext(ShowsContext);
 
+  console.log("Favorite show IDs:", showIds);
+
   // Create an array of queries and run in parallel.
   const favoriteShowQueries = useQueries(
     showIds.map((showId) => {
       return {
-        queryKey: ["show", { id: showId }],
+        queryKey: ["show", { id: showId }], 
         queryFn: getShow,
       };
     })

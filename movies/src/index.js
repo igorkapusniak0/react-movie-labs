@@ -8,11 +8,13 @@ import MoviePage from "./pages/movieDetailsPage";
 import ShowPage from "./pages/ShowDetailsPage";
 
 import FavoriteMoviesPage from "./pages/favoriteMoviesPage";
+import FavoriteShowsPage from "./pages/favoriteShowsPage";
 
 import UpcomingMoviesPage from "./pages/upcomingMoviesPage";
 import UpcomingShowsPage from "./pages/upcomingShowsPage";
 
 import MovieReviewPage from "./pages/movieReviewPage";
+import ShowReviewPage from "./pages/showReviewPage";
 
 import TopRatedMoviesPage from "./pages/topRatedMoviesPage";
 import TopRatedShowsPage from "./pages/topRatedShowsPage";
@@ -25,7 +27,8 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import MoviesContextProvider from "./contexts/moviesContext";
 import ShowsContextProvider from "./contexts/showsContext";
 
-import AddMovieReviewPage from './pages/addMovieReviewPage'
+import AddMovieReviewPage from './pages/addMovieReviewPage';
+import AddShowReviewPage from "./pages/addShowReviewPage"
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -46,10 +49,8 @@ const App = () => {
           <ShowsContextProvider>
             <Routes>
               <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
-              <Route path="/reviews/:id" element={<MovieReviewPage />} />
               <Route path="/movies/:id" element={<MoviePage />} />
               <Route path="/movies" element={<HomePage />} />
-              <Route path="/reviews/form" element={<AddMovieReviewPage />} />
               <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
               <Route path="/movies/top_rated" element={<TopRatedMoviesPage />} />
 
@@ -57,7 +58,14 @@ const App = () => {
               <Route path="/shows/upcoming" element={<UpcomingShowsPage />} />
               <Route path="/shows/top_rated" element={<TopRatedShowsPage />} />
               <Route path="/shows/:id" element={<ShowPage />} />
+              <Route path="/shows/favorites" element={<FavoriteShowsPage />} />
+              
 
+              <Route path="/movie_reviews/:id" element={<MovieReviewPage /> } />
+              <Route path="/movie_reviews/form" element={<AddMovieReviewPage /> } />
+
+              <Route path="/show_reviews/:id" element={<ShowReviewPage /> } />
+              <Route path="/show_reviews/form" element={<AddShowReviewPage /> } />
               <Route path="*" element={<Navigate to="/movies" />} />
             </Routes>
           </ShowsContextProvider>

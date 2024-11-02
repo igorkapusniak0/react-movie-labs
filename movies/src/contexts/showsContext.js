@@ -17,6 +17,7 @@ const ShowsContextProvider = (props) => {
       newFavorites = [...favorites];
     }
     setFavorites(newFavorites)
+    console.log(favorites)
   };
   
   // We will use this function in the next step

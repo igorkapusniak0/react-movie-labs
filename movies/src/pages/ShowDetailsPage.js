@@ -2,6 +2,7 @@ import React from "react";
 import { useParams } from 'react-router-dom';
 import ShowDetails from "../components/showDetails";
 import PageTemplate from "../components/templateShowPage";
+import SimilarShows from "../components/similarShows";
 import { getShow } from '../api/tmdb-api'
 import { useQuery } from "react-query";
 import Spinner from '../components/spinner'
@@ -27,6 +28,7 @@ const ShowPage = (props) => {
         <>
           <PageTemplate show={show}>
             <ShowDetails show={show} />
+            <SimilarShows showId={show.id} />
           </PageTemplate>
         </>
       ) : (
