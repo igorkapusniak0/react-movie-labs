@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react"; 
-import MovieList from "../movieList";
+import MovieScrollList from "../movieScrollList";
 import Typography from "@mui/material/Typography";
 import { getSimilarMovies } from "../../api/tmdb-api"; 
 import { useQuery } from "react-query";
@@ -31,7 +31,7 @@ const SimilarMovies = ({ movieId }) => {
                 overflowX: 'auto', 
                 padding: '16px 0',
             }}>
-                <MovieList movies={similarMovies.results} action={action} /> 
+                <MovieScrollList movies={similarMovies.results} action={action} /> 
             </div>
 
         </>

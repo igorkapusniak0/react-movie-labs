@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react"; 
-import ShowList from "../showList";
+import ShowScrollList from "../showScrollList";
 import Typography from "@mui/material/Typography";
 import { getSimilarShows } from "../../api/tmdb-api"; 
 import { useQuery } from "react-query";
@@ -31,7 +31,7 @@ const SimilarShows = ({ showId }) => {
                 overflowX: 'auto', 
                 padding: '16px 0',
             }}>
-                <ShowList shows={similarShows.results} action={action} /> 
+                <ShowScrollList shows={similarShows.results} action={action} /> 
             </div>
 
         </>

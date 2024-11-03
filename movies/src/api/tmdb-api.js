@@ -248,48 +248,118 @@ export const getShow = (args) => {
   export const getSimilarMovies = (id) => {
     return fetch(
       `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${process.env.REACT_APP_TMDB_KEY}&page=1`
-    )
-    .then((response) => {
+    ).then((response) => {
       if (!response.ok) {
         return response.json().then((error) => {
           throw new Error(error.status_message || "Something went wrong");
         });
       }
-      return response.json(); // Return the response data
-    })
-    .then((responseData) => {
-      // Limit the results to the first 5
-      return {
-        ...responseData,
-        results: responseData.results.slice(0, 5), // Ensure we slice the results here
-      };
+      return response.json(); 
     })
     .catch((error) => {
-      throw error; // Rethrow the error for the calling function to handle
+      throw error; 
     });
   };
 
   export const getSimilarShows = (id) => {
     return fetch(
       `https://api.themoviedb.org/3/tv/${id}/similar?api_key=${process.env.REACT_APP_TMDB_KEY}&page=1`
-    )
-    .then((response) => {
+    ).then((response) => {
       if (!response.ok) {
         return response.json().then((error) => {
           throw new Error(error.status_message || "Something went wrong");
         });
       }
-      return response.json(); // Return the response data
-    })
-    .then((responseData) => {
-      // Limit the results to the first 5
-      return {
-        ...responseData,
-        results: responseData.results.slice(0, 5), // Ensure we slice the results here
-      };
+      return response.json(); 
     })
     .catch((error) => {
-      throw error; // Rethrow the error for the calling function to handle
+      throw error; 
     });
   };
+
+  export const getMovieCast = (id) => {
+    return fetch(
+      `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${process.env.REACT_APP_TMDB_KEY}`
+    ).then((response) => {
+      if (!response.ok) {
+        return response.json().then((error) => {
+          throw new Error(error.status_message || "Something went wrong");
+        });
+      }
+      return response.json();
+    })
+    .catch((error) => {
+        throw error
+    });
+  };
+
+  export const getShowCast = (id) => {
+    return fetch(
+      `https://api.themoviedb.org/3/tv/${id}/credits?api_key=${process.env.REACT_APP_TMDB_KEY}`
+    ).then((response) => {
+      if (!response.ok) {
+        return response.json().then((error) => {
+          throw new Error(error.status_message || "Something went wrong");
+        });
+      }
+      return response.json();
+    })
+    .catch((error) => {
+        throw error
+    });
+  };
+
+  export const getActorMovies = (id) => {
+    return fetch(
+
+      `https://api.themoviedb.org/3/person/${id}/combined_credits?api_key=${process.env.REACT_APP_TMDB_KEY}`
+    ).then((response) => {
+      if (!response.ok) {
+        return response.json().then((error) => {
+          throw new Error(error.status_message || "Something went wrong");
+        });
+      }
+      return response.json();
+    })
+    .catch((error) => {
+        throw error
+    });
+  };
+
+
   
+  export const getActorImages = (id) => {
+    return fetch(
+
+      `https://api.themoviedb.org/3/person/${id}/images?api_key=${process.env.REACT_APP_TMDB_KEY}`
+    ).then((response) => {
+      if (!response.ok) {
+        return response.json().then((error) => {
+          throw new Error(error.status_message || "Something went wrong");
+        });
+      }
+      return response.json();
+    })
+    .catch((error) => {
+        throw error
+    });
+  };
+
+  export const getActor = (args) => {
+    const [, idPart] = args.queryKey;
+    const { id } = idPart;
+    return fetch(
+      `https://api.themoviedb.org/3/person/${id}?api_key=${process.env.REACT_APP_TMDB_KEY}`
+    ).then((response) => {
+      if (!response.ok) {
+        return response.json().then((error) => {
+          throw new Error(error.status_message || "Something went wrong");
+        });
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      throw error
+   });
+  };
+

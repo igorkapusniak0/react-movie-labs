@@ -30,6 +30,8 @@ import ShowsContextProvider from "./contexts/showsContext";
 import AddMovieReviewPage from './pages/addMovieReviewPage';
 import AddShowReviewPage from "./pages/addShowReviewPage"
 
+import ActorPage from "./pages/actorDetailsPage"; 
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -66,6 +68,9 @@ const App = () => {
 
               <Route path="/show_reviews/:id" element={<ShowReviewPage /> } />
               <Route path="/show_reviews/form" element={<AddShowReviewPage /> } />
+
+              <Route path="/actors/:id" element={<ActorPage/>} />
+
               <Route path="*" element={<Navigate to="/movies" />} />
             </Routes>
           </ShowsContextProvider>
