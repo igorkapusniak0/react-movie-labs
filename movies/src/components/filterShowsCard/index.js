@@ -24,6 +24,8 @@ const formControl =
 export default function FilterShowsCard(props) {
 
   const { data, error, isLoading, isError } = useQuery("genres", getGenresShow);
+  const [minRating, setMinRating] = useState(0);
+  const [maxRating, setMaxRating] = useState(10);
 
   if (isLoading) {
     return <Spinner />;
@@ -52,6 +54,18 @@ export default function FilterShowsCard(props) {
 
   const handleSortChange = (e) => {
     handleChange(e, "sort", e.target.value);
+  };
+
+  const handleMinRatingChange = (e) => {
+    const value = Math.max(0, Math.min(maxRating, Number(e.target.value))); 
+    setMinRating(value);
+    props.onUserInput("minRating", value); 
+  };
+
+  const handleMaxRatingChange = (e) => {
+    const value = Math.min(10, Math.max(minRating, Number(e.target.value))); 
+    setMaxRating(value);
+    props.onUserInput("maxRating", value); 
   };
   
   return (
@@ -106,6 +120,24 @@ export default function FilterShowsCard(props) {
             <MenuItem value="rating">Rating</MenuItem>
           </Select>
         </FormControl>
+        <TextField
+          sx={{ ...formControl }}
+          id="min-rating"
+          label="Min Rating"
+          type="number"
+          variant="filled"
+          value={minRating}
+          onChange={handleMinRatingChange}
+        />
+        <TextField
+          sx={{ ...formControl }}
+          id="max-rating"
+          label="Max Rating"
+          type="number"
+          variant="filled"
+          value={maxRating}
+          onChange={handleMaxRatingChange}
+        />
       </CardContent>
 
       <CardMedia

@@ -8,6 +8,8 @@ function MovieListPageTemplate({ movies, title, action }) {
   const [nameFilter, setNameFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");
   const [sortOption, setSortOption] = useState("none");
+  const [minRating, setMinRating] = useState(""); 
+  const [maxRating, setMaxRating] = useState("");
   const genreId = Number(genreFilter);
 
   let displayedMovies = movies
@@ -17,6 +19,12 @@ function MovieListPageTemplate({ movies, title, action }) {
     })
     .filter((m) => {
       return genreId > 0 ? m.genre_ids.includes(genreId) : true;
+    })
+    .filter((m) => {
+      const rating = m.vote_average || 0;
+      const min = minRating ? parseFloat(minRating) : 0;
+      const max = maxRating ? parseFloat(maxRating) : 10; 
+      return rating >= min && rating <= max;
     });
 
   displayedMovies = displayedMovies.sort((a, b) => {
@@ -35,6 +43,10 @@ function MovieListPageTemplate({ movies, title, action }) {
       setGenreFilter(value);
     } else if (type === "sort") {
       setSortOption(value);
+    }else if (type === "minRating") {
+      setMinRating(value);
+    } else if (type === "maxRating") {
+      setMaxRating(value);
     }
   };
 
@@ -54,6 +66,8 @@ function MovieListPageTemplate({ movies, title, action }) {
             titleFilter={nameFilter}
             genreFilter={genreFilter}
             sortOption={sortOption} 
+            minRating={minRating} 
+            maxRating={maxRating}
           />
         </Grid>
         <MovieList action={action} movies={displayedMovies} />
