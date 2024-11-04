@@ -7,21 +7,37 @@ import Grid from "@mui/material/Grid2";
 function ShowListPageTemplate({ shows, title, action }) {
   const [nameFilter, setNameFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");
+  const [sortOption, setSortOption] = useState("none");
   const genreId = Number(genreFilter);
 
   let displayedShows = shows
   .filter((m) => {
-    const itemTitle = m.title || m.name || ""; 
+    const itemTitle = m.name; 
     return itemTitle.toLowerCase().includes(nameFilter.toLowerCase());
   })
     .filter((m) => {
       return genreId > 0 ? m.genre_ids.includes(genreId) : true;
     });
 
-  const handleChange = (type, value) => {
-    if (type === "name") setNameFilter(value);
-    else setGenreFilter(value);
-  };
+    displayedShows = displayedShows.sort((a, b) => {
+      if (sortOption === "title") {
+        return a.original_name.localeCompare(b.original_name);
+      } else if (sortOption === "rating") {
+        return (b.vote_average || 0) - (a.vote_average || 0);
+      }
+      return 0;
+    });
+    
+  
+    const handleChange = (type, value) => {
+      if (type === "name") {
+        setNameFilter(value);
+      } else if (type === "genre") {
+        setGenreFilter(value);
+      } else if (type === "sort") {
+        setSortOption(value);
+      }
+    };
 
   return (
     <Grid container>
@@ -38,6 +54,7 @@ function ShowListPageTemplate({ shows, title, action }) {
             onUserInput={handleChange}
             titleFilter={nameFilter}
             genreFilter={genreFilter}
+            sortOption={sortOption} 
           />
         </Grid>
         <ShowList action={action} shows={displayedShows}></ShowList>

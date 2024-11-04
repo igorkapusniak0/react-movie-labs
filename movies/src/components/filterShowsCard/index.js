@@ -49,6 +49,10 @@ export default function FilterShowsCard(props) {
   const handleGenreChange = (e) => {
     handleChange(e, "genre", e.target.value);
   };
+
+  const handleSortChange = (e) => {
+    handleChange(e, "sort", e.target.value);
+  };
   
   return (
     <Card 
@@ -88,19 +92,27 @@ export default function FilterShowsCard(props) {
             })}
           </Select>
         </FormControl>
+
+        <FormControl sx={{ ...formControl }}>
+          <InputLabel id="sort-label">Sort By</InputLabel>
+          <Select
+            labelId="sort-label"
+            id="sort-select"
+            value={props.sortOption}
+            onChange={handleSortChange}
+          >
+            <MenuItem value="none">No Sorting</MenuItem>
+            <MenuItem value="title">Title</MenuItem>
+            <MenuItem value="rating">Rating</MenuItem>
+          </Select>
+        </FormControl>
       </CardContent>
+
       <CardMedia
         sx={{ height: 300 }}
         image={img}
         title="Filter"
       />
-      <CardContent>
-        <Typography variant="h5" component="h1">
-          <SearchIcon fontSize="large" />
-          Filter the shows.
-          <br />
-        </Typography>
-      </CardContent>
     </Card>
   );
 }
