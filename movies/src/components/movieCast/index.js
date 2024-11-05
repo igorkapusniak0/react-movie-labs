@@ -3,6 +3,8 @@ import ActorList from "../actorList";
 import Typography from "@mui/material/Typography";
 import { getMovieCast } from "../../api/tmdb-api"; 
 import { useQuery } from "react-query";
+import { Paper } from "@mui/material";
+
 
 const MovieCast = ({ movieId }) => { 
     const { data: movieCast, error, isLoading, isError } = useQuery(["movieCast", movieId], () => getMovieCast(movieId));
@@ -10,12 +12,24 @@ const MovieCast = ({ movieId }) => {
     if (isLoading) return <Typography>Loading...</Typography>;
     if (isError) return <Typography>Error: {error.message}</Typography>;
 
+
+    const root = {
+        display: "flex",
+        justifyContent: "center",
+        flexWrap: "wrap",
+        listStyle: "none",
+        padding: 1.5,
+        margin: 0,
+    };   
+
     console.log("Fetched Cast Data:", movieCast); 
     return (
         <>
-            <Typography variant="h5" component="h3">
+             <Typography variant="h5" component="h3" style={{ textAlign: 'center', marginBottom: '1em' }}>
                 Cast
             </Typography>
+            <Paper component="ul" sx={{ ...root }} style={{ marginBottom: '2em' }}>
+       
 
             <div style={{ 
                 display: 'flex', 
@@ -24,6 +38,7 @@ const MovieCast = ({ movieId }) => {
             }}>
                 <ActorList actors={movieCast?.cast || []} /> 
             </div>
+            </Paper>
         </>
     );
 };

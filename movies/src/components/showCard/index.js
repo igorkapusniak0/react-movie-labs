@@ -41,7 +41,7 @@ export default function ShowCard({ show, action }) {
         }
         title={
           <Typography variant="h5" component="p">
-            {show.original_name}{" "}
+            {show.original_name}
           </Typography>
         }
       />      <CardMedia
@@ -63,7 +63,7 @@ export default function ShowCard({ show, action }) {
           <Grid size={{xs: 6}}>
             <Typography variant="h6" component="p">
               <StarRateIcon fontSize="small" />
-              {"  "} {show.vote_average}{" "}
+              {show.vote_average}
             </Typography>
           </Grid>
         </Grid>

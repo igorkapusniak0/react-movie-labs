@@ -5,6 +5,17 @@ import { getSimilarShows } from "../../api/tmdb-api";
 import { useQuery } from "react-query";
 import { ShowsContext } from "../../contexts/showsContext"; 
 import Button from "@mui/material/Button"; 
+import Paper from "@mui/material/Paper";
+
+
+const root = {
+    display: "flex",
+    justifyContent: "center",
+    flexWrap: "wrap",
+    listStyle: "none",
+    padding: 1.5,
+    margin: 0,
+};
 
 const SimilarShows = ({ showId }) => { 
     const { addToFavorites } = useContext(ShowsContext); 
@@ -22,7 +33,8 @@ const SimilarShows = ({ showId }) => {
 
     return (
         <>
-            <Typography variant="h5" component="h3">
+        <Paper component="ul" sx={{ ...root }} style={{ marginBottom: '1em' }}>
+            <Typography variant="h5" component="h3" style={{ textAlign: 'center', marginBottom: '1em' }}>
                 Similar Shows
             </Typography>
 
@@ -33,7 +45,7 @@ const SimilarShows = ({ showId }) => {
             }}>
                 <ShowScrollList shows={similarShows.results} action={action} /> 
             </div>
-
+            </Paper>
         </>
     );
 };

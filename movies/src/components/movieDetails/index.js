@@ -21,11 +21,12 @@ const root = {
 const chip = { margin: 0.5 };
 
 const MovieDetails = ({ movie }) => {  // Don't miss this!
+  console.log(movie)
     const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
     <>
-      <Typography variant="h5" component="h3">
+      <Typography variant="h5" component="h3"  style={{ textAlign: 'center', marginBottom: '1em' }} >
         Overview
       </Typography>
 
@@ -33,10 +34,7 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
         {movie.overview}
       </Typography>
 
-      <Paper 
-        component="ul" 
-        sx={{...root}}
-      >
+      <Paper component="ul" sx={{...root}}>
         <li>
           <Chip label="Genres" sx={{...chip}} color="primary" />
         </li>
@@ -54,14 +52,11 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
         />
         <Chip
           icon={<StarRate />}
-          label={`${movie.vote_average} (${movie.vote_count}`}
+          label={`${movie.vote_average}`}
         />
         <Chip label={`Released: ${movie.release_date}`} />
       </Paper>
-      <Paper 
-        component="ul" 
-        sx={{...root}}
-      >
+      <Paper component="ul" sx={{...root}}>
         <li>
           <Chip label="Production Countries" sx={{...chip}} color="primary" />
         </li>
@@ -70,6 +65,16 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
             <Chip label={g.name} sx={{...chip}} />
           </li>
         ))}
+      </Paper>
+      <Paper component="ul" sx={{ ...root }}>
+                <li>
+                    <Chip label="Production Companies" sx={{ ...chip }} color="primary" />
+                </li>
+                {movie.production_companies.map((company) => (
+                    <li key={company.id}>
+                        <Chip label={company.name} sx={{ ...chip }} />
+                    </li>
+                ))}
       </Paper>
   
       <Fab
@@ -85,7 +90,7 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
         <NavigationIcon />
         Reviews
       </Fab>
-      <Drawer anchor="top" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
+      <Drawer anchor="top" open={drawerOpen} onClose={() => setDrawerOpen(false)} >
         <MovieReviews movie={movie} />
       </Drawer>
       </>

@@ -26,11 +26,8 @@ const ShowHeader = (props) => {
         <ArrowBackIcon color="primary" fontSize="large" />
       </IconButton>
 
-      <Typography variant="h4" component="h3">
+      <Typography variant="h4" component="h3" style={{ textAlign: 'center'}}>
         {show.original_name}
-        <a href={show.homepage}>
-          <HomeIcon color="primary" />
-        </a>
         <br />
         {show.tagline && (
           <span style={{ fontSize: "1.5rem" }}>{` "${show.tagline}"`}</span>

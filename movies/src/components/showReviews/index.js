@@ -47,7 +47,7 @@ export default function ShowReviews({ show }) {
               <TableCell >{excerpt(r.content)}</TableCell>
               <TableCell >
               <Link
-                  to={`/reviews/${r.id}`}
+                  to={`/show_reviews/${r.id}`}
                   state={{
                       review: r,
                       show: show,

@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import ActorDetails from "../components/actorDetails";
 import TemplateActorPage from "../components/templateActorPage";
 import ActorMovies from "../components/actorMovies";
+import ActorShows from "../components/actorShows";
 import { getActor } from '../api/tmdb-api'
 import { useQuery } from "react-query";
 import Spinner from '../components/spinner';
@@ -29,6 +30,7 @@ const ActorPage = (props) => {
           <TemplateActorPage actor={actor}>
             <ActorDetails actor={actor} />
             <ActorMovies actorId={actor.id} />
+            <ActorShows actorId={actor.id} />
           </TemplateActorPage>
         </>
       ) : (

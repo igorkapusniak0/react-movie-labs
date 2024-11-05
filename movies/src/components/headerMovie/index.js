@@ -26,11 +26,8 @@ const MovieHeader = (props) => {
         <ArrowBackIcon color="primary" fontSize="large" />
       </IconButton>
 
-      <Typography variant="h4" component="h3">
+      <Typography variant="h4" component="h3" style={{ textAlign: 'center' }}>
         {movie.title}
-        <a href={movie.homepage}>
-          <HomeIcon color="primary" />
-        </a>
         <br />
         <span sx={{ fontSize: "1.5rem" }}>{`   "${movie.tagline}"`} </span>
       </Typography>

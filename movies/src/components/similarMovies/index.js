@@ -5,6 +5,8 @@ import { getSimilarMovies } from "../../api/tmdb-api";
 import { useQuery } from "react-query";
 import { MoviesContext } from "../../contexts/moviesContext"; 
 import Button from "@mui/material/Button"; 
+import { Paper } from "@mui/material";
+
 
 const SimilarMovies = ({ movieId }) => { 
     const { addToFavorites } = useContext(MoviesContext); 
@@ -19,12 +21,22 @@ const SimilarMovies = ({ movieId }) => {
             Add to Favorites
         </Button>
     );
+    const root = {
+        display: "flex",
+        justifyContent: "center",
+        flexWrap: "wrap",
+        listStyle: "none",
+        padding: 1.5,
+        margin: 0,
+    };   
 
     return (
         <>
-            <Typography variant="h5" component="h3">
+         <Typography variant="h5" component="h3" style={{ textAlign: 'center', marginBottom: '1em' }}>
                 Similar Movies
             </Typography>
+        <Paper component="ul" sx={{ ...root }} style={{ marginBottom: '1em' }}>
+           
 
             <div style={{ 
                 display: 'flex', 
@@ -33,7 +45,7 @@ const SimilarMovies = ({ movieId }) => {
             }}>
                 <MovieScrollList movies={similarMovies.results} action={action} /> 
             </div>
-
+            </Paper>
         </>
     );
 };

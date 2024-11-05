@@ -27,7 +27,7 @@ const ShowDetails = ({ show }) => { // Don't miss this!
 
     return (
         <>
-            <Typography variant="h5" component="h3">
+            <Typography variant="h5" component="h3" style={{ textAlign: 'center', marginBottom: '1em' }}>
                 Overview
             </Typography>
 
@@ -51,10 +51,10 @@ const ShowDetails = ({ show }) => { // Don't miss this!
                 
                 <Chip
                     icon={<StarRate />}
-                    label={`${show.vote_average} (${show.vote_count || 0} votes)`}
+                    label={`${show.vote_average})`}
                 />
-                <Chip label={`First Aired: ${show.first_air_date || "N/A"}`} />
-                <Chip label={`Last Aired: ${show.last_air_date || "N/A"}`} />
+                <Chip label={`First Aired: ${show.first_air_date}`} />
+                <Chip label={`Last Aired: ${show.last_air_date}`} />
             </Paper>
             <Paper component="ul" sx={{ ...root }}>
                 <li>
