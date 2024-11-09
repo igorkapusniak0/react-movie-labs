@@ -52,6 +52,28 @@ npm install react-youtube
 + /blogs/:id - displays a particular blog.
 + /blogs/:id/comments - detail view of a particular blog and its comments.
 + etc.
+/movies/favorites
+/movies/:id
+/movies
+/movies/upcoming
+/movies/top_rated
+
+/shows
+/shows/upcoming
+/shows/top_rated
+/shows/:id
+/shows/favorites
+              
+
+/movie_reviews/:id
+/movie_reviews/form
+
+/show_reviews/:id
+              <Route path="/show_reviews/form" element={<AddShowReviewPage /> } />
+
+              <Route path="/actors/:id" element={<ActorPage/>} />
+
+
 
 [If relevant, state what aspects of your app are protected (i.e. require authentication) and what is public.]
 

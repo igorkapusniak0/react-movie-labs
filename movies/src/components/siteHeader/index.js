@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import MenuIcon from "@mui/icons-material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
+import Box from "@mui/material/Box";
 import { useNavigate } from "react-router-dom";
 import { styled } from '@mui/material/styles';
 import { useTheme } from "@mui/material/styles";
@@ -18,9 +19,11 @@ const SiteHeader = ({ history }) => {
   const [anchorElMedia, setAnchorElMedia] = useState(null);
   const [anchorElMenu, setAnchorElMenu] = useState(null);
   const [selectedMedia, setSelectedMedia] = useState("Movies");
+  const [anchorElLogin, setAnchorElLogin] = useState(null);
 
   const openMedia = Boolean(anchorElMedia);
   const openMenu = Boolean(anchorElMenu);
+  const openLogin = Boolean(anchorElLogin);
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -44,13 +47,23 @@ const SiteHeader = ({ history }) => {
   const mediaOptions = [
     { label: "Movies", path: "/movies/" },
     { label: "Shows", path: "/shows/" },
+  ];
 
+  const loginOptions = [
+    { label: "Login", path: "/login/" },
+    { label: "Register", path: "/register/" },
   ];
 
   const handleMenuSelect = (pageURL) => {
     navigate(pageURL, { replace: true });
     setAnchorElMenu(null);
   };
+
+  const handleLoginSelect = (pageURL) => {
+    navigate(pageURL, { replace: true });
+    setAnchorElLogin(null);
+  };
+
   const handleMediaSelect = (pageURL, mediaLabel) => {
     setSelectedMedia(mediaLabel);
     navigate(pageURL, { replace: true });
@@ -59,6 +72,9 @@ const SiteHeader = ({ history }) => {
 
   const handleMenu = (event) => {
     setAnchorElMenu(event.currentTarget);
+  };
+  const handleLogin = (event) => {
+    setAnchorElLogin(event.currentTarget);
   };
   const handleMedia = (event) => {
     setAnchorElMedia(event.currentTarget);
@@ -103,11 +119,10 @@ const SiteHeader = ({ history }) => {
                     </MenuItem>
                   ))}
                 </Menu>
-             
-          <Typography variant="h4" sx={{ flexGrow: 1 }}>
+          <Typography variant="h4" sx={{marginRight: "50px"}} >
             TMDB Client
           </Typography>
-          <Typography variant="h6" sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" sx={{ justifyContent: 'left',flexGrow: 1 }}>
             All you ever wanted to know about {selectedMedia}!
           </Typography>
             {isMobile ? (
@@ -147,12 +162,61 @@ const SiteHeader = ({ history }) => {
                 </Menu>
               </>
             ) : (
-              <>
+              <Box sx={{ display: 'flex', justifyContent: 'left', flexGrow: 1 }}>
                 {currentMenuOptions.map((opt) => (
                   <Button
                     key={opt.label}
                     color="inherit"
                     onClick={() => handleMenuSelect(opt.path)}
+                  >
+                  {opt.label}
+                  </Button>
+                ))}
+              </Box>
+            )}
+             {isMobile ? (
+              <>
+                <IconButton
+                  aria-label="login"
+                  aria-controls="login-appbar"
+                  aria-haspopup="true"
+                  onClick={handleLogin}
+                  color="inherit"
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Menu
+                  id="login-appbar"
+                  anchorEl={anchorElLogin}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={openLogin}
+                  onClose={() => setAnchorElLogin(null)}
+                >
+                  {loginOptions.map((opt) => (
+                    <MenuItem
+                      key={opt.label}
+                      onClick={() => handleLoginSelect(opt.path)}
+                    >
+                      {opt.label}
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </>
+            ) : (
+              <>
+                {loginOptions.map((opt) => (
+                  <Button
+                    key={opt.label}
+                    color="inherit"
+                    onClick={() => handleLoginSelect(opt.path)}
                   >
                     {opt.label}
                   </Button>
