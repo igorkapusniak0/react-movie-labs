@@ -66,6 +66,7 @@ const RegisterForm = () => {
         const result = registerUser(data);
         if (result.success) {
           setOpen(true);
+          navigate("/movies");
         } else {
           console.error(result.message);
         }

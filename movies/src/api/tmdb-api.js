@@ -240,7 +240,7 @@ export const getShowProviders = (args) => {
 
   export const getShows = () => {
     return fetch(
-      `https://api.themoviedb.org/3/discover/tv?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1`
+      `https://api.themoviedb.org/3/tv/popular?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1`
     ).then((response) => {
       if (!response.ok) {
         return response.json().then((error) => {
@@ -256,7 +256,7 @@ export const getShowProviders = (args) => {
   
   export const getUpcomingShows = () => {
     return fetch(
-      `https://api.themoviedb.org/3/tv/airing_today?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1`
+      `https://api.themoviedb.org/3/tv/on_the_air?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1`
     ).then((response) => {
       if (!response.ok) {
         return response.json().then((error) => {

@@ -9,7 +9,7 @@ const schema = Joi.object({
 });
 
 module.exports = (db) => {
-  const { registerUser, loginUser } = require("../controller/userController.js")(db);
+  const { registerUser, loginUser, setMoviePlaylist, setShowPlaylist, getMoviePlaylist, getShowPlaylist } = require("../controller/userController.js")(db);
 
   const router = express.Router();
 
@@ -27,11 +27,10 @@ module.exports = (db) => {
 
   router.post("/login", async (req, res) => {
     const { email, password } = req.body;
-
     try {
-      const userId = await loginUser(email, password);
-      if (userId) {
-        res.status(200).send({ userId });
+      const loginStatus = await loginUser(email, password);
+      if (loginStatus) {
+        res.status(200).send({ loginStatus });
       } else {
         res.status(401).send({ error: "Invalid credentials" });
       }
@@ -40,5 +39,63 @@ module.exports = (db) => {
     }
   });
 
-  return router;
+  router.put("/setShowPlaylist", async (req, res) => {
+    console.log('Received payload:', req.body);
+    const { email, showPlaylist } = req.body;
+    try {
+      const setData = await setShowPlaylist(email, showPlaylist);
+      console.log("setData",setData)
+      if (setData) {
+        res.status(200).send({ setData });
+      } else {
+        res.status(401).send({ error: "Invalid credentials" });
+      }
+    } catch (error) {
+      res.status(500).send({ error: error.message });
+    }
+  });
+
+  router.put("/setMoviePlaylist", async (req, res) => {
+    const { email, moviePlaylist } = req.body;
+    try {
+      const setData = await setMoviePlaylist(email, moviePlaylist);
+      if (setData) {
+        res.status(200).send({ setData });
+      } else {
+        res.status(401).send({ error: "Invalid credentials" });
+      }
+    } catch (error) {
+      res.status(500).send({ error: error.message });
+    }
+  });
+
+  router.post("/getMoviePlaylist", async (req, res) => {
+    const { email } = req.body;
+    try {
+      const data = await getMoviePlaylist(email);
+      if (data) {
+        res.status(200).send({ data });
+      } else {
+        res.status(401).send({ error: "Invalid credentials" });
+      }
+    } catch (error) {
+      res.status(500).send({ error: error.message });
+    }
+  });
+
+router.post("/getShowPlaylist", async (req, res) => {
+  const { email } = req.body;
+  try {
+    const data = await getShowPlaylist(email);
+    if (data) {
+      res.status(200).send({ data });
+    } else {
+      res.status(401).send({ error: "Invalid credentials" });
+    }
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+});
+
+return router;
 };

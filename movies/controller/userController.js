@@ -19,11 +19,35 @@ module.exports = (db) => {
     const user = await users.findOne({ email });
 
     if (user && await bcrypt.compare(password, user.password)) {
-      return 1;
+      return true;
     } else {
-      return 0;
+      return false;
     }
   }
 
-  return { registerUser, loginUser };
+  async function setMoviePlaylist(email, playlist) {
+    const result = await users.updateOne({ email },{ $set: {moviePlaylist: playlist}});
+    return result.insertedId;
+  }
+  async function setShowPlaylist(email, playlist) {
+    const result = await users.updateOne({ email }, { $set: { showPlaylist: playlist } });
+    console.log(result)
+    if(result){
+      return true;
+    }else{
+      return false;
+    }
+    
+  }
+  async function getShowPlaylist(email) {
+    const result = await users.findOne({ "email": email });
+    return result.showPlaylist;
+  }
+  async function getMoviePlaylist(email) {
+    const result = await users.findOne({ "email": email });
+    return result.moviePlaylist;
+  }
+
+
+  return { registerUser, loginUser, setMoviePlaylist, setShowPlaylist, getMoviePlaylist, getShowPlaylist };
 };

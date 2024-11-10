@@ -11,7 +11,7 @@ import { loginUser } from "../../api/db-api";
 
 const styles = {
   root: {
-    height: "100vh", 
+    marginTop: 2,
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
@@ -19,7 +19,7 @@ const styles = {
   },
   form: {
     width: "100%",
-    maxWidth: "400px", 
+    maxWidth: "400px",
     "& > * ": {
       marginTop: 2,
     },
@@ -61,11 +61,14 @@ const LoginForm = () => {
     reset,
   } = useForm(defaultValues);
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     try {
-        const result = loginUser(data);
-        if (result.success) {
+        const result = await loginUser(data);
+        console.log(data)
+        console.log("result",result.loginStatus)
+        if (result) {
           setOpen(true);
+          navigate("/movies");
         } else {
           console.error(result.message);
         }

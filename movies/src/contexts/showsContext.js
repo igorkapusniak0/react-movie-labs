@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { setShowPlaylist, getShowPlaylist } from "../api/db-api";
 
 export const ShowsContext = React.createContext(null);
 
@@ -17,7 +18,10 @@ const ShowsContextProvider = (props) => {
       newFavorites = [...favorites];
     }
     setFavorites(newFavorites)
-    console.log(favorites)
+   
+    setShowPlaylist("ikapusniak3@gmail.com", newFavorites)
+    console.log("old", favorites)
+    console.log("new",newFavorites)
   };
   
   // We will use this function in the next step

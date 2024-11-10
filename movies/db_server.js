@@ -10,10 +10,18 @@ const app = express();
 const port = 3001;
 const client = new MongoClient(process.env.DB_LINK);
 app.use(cors({
-    origin: 'http://127.0.0.1:3000', 
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-  }));
+  origin: (origin, callback) => {
+    const allowedOrigins = ['http://127.0.0.1:3000', 'http://localhost:3000'];
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
+
 
 async function main() {
   try {
