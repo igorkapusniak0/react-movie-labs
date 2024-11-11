@@ -19,7 +19,8 @@ module.exports = (db) => {
     const user = await users.findOne({ email });
 
     if (user && await bcrypt.compare(password, user.password)) {
-      return true;
+      console.log("user return",user)
+      return user;
     } else {
       return false;
     }
@@ -27,7 +28,12 @@ module.exports = (db) => {
 
   async function setMoviePlaylist(email, playlist) {
     const result = await users.updateOne({ email },{ $set: {moviePlaylist: playlist}});
-    return result.insertedId;
+    console.log(result)
+    if(result){
+      return true;
+    }else{
+      return false;
+    }
   }
   async function setShowPlaylist(email, playlist) {
     const result = await users.updateOne({ email }, { $set: { showPlaylist: playlist } });
@@ -45,6 +51,7 @@ module.exports = (db) => {
   }
   async function getMoviePlaylist(email) {
     const result = await users.findOne({ "email": email });
+    console.log(result)
     return result.moviePlaylist;
   }
 

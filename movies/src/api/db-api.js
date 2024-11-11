@@ -51,6 +51,9 @@ export async function loginUser(data) {
 }
 
   
+
+
+
 export async function setShowPlaylist(email, playlist) {
   console.log('Payload sent to API:', email, playlist);
   
@@ -82,33 +85,7 @@ export async function setShowPlaylist(email, playlist) {
   }
 }
 
-export async function getShowPlaylist(data) {
-    const url = 'http://localhost:3001/users/getShowPlaylist';
-  
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      });
-  
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error('Error:', errorData);
-        return;
-      }
-  
-      const result = await response.json();
-      console.log('Success:', result);
-      return result;
-    } catch (error) {
-      console.error('Network error:', error);
-    }
-}
-
-export async function setMoviePlaylist(data) {
+export async function setMoviePlaylist(email, playlist) {
     const url = 'http://localhost:3001/users/setMoviePlaylist';
   
     try {
@@ -117,7 +94,10 @@ export async function setMoviePlaylist(data) {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify({
+          email: email,         
+          moviePlaylist: playlist,
+        }),
       });
   
       if (!response.ok) {
@@ -134,7 +114,7 @@ export async function setMoviePlaylist(data) {
     }
 }
   
-export async function getMoviePlaylist(data) {
+export async function getMoviePlaylist(email) {
     const url = 'http://localhost:3001/users/getMoviePlaylist';
   
     try {
@@ -143,7 +123,9 @@ export async function getMoviePlaylist(data) {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify({
+          email: email,         
+        }),
       });
   
       if (!response.ok) {
@@ -159,3 +141,31 @@ export async function getMoviePlaylist(data) {
       console.error('Network error:', error);
     }
   }
+
+  export async function getShowPlaylist(email) {
+    const url = 'http://localhost:3001/users/getShowPlaylist';
+  
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: email,         
+        }),
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('Error:', errorData);
+        return;
+      }
+  
+      const result = await response.json();
+      console.log('Success:', result);
+      return result;
+    } catch (error) {
+      console.error('Network error:', error);
+    }
+}

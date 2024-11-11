@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { setMoviePlaylist, getMoviePlaylist } from "../api/db-api";
+import React, { useState, useEffect } from "react";
+import { setMoviePlaylist } from "../api/db-api";
+import { getLogin, getEmail, getMoviePlayList } from "../user/user";
 
 
 export const MoviesContext = React.createContext(null);
@@ -7,7 +8,7 @@ export const MoviesContext = React.createContext(null);
 
 
 const MoviesContextProvider = (props) => {
-  const [favorites, setFavorites] = useState( [] )
+  const [favorites, setFavorites] = useState( getMoviePlayList() || [] )
   const [playlist, setPlaylist] = useState( [] )
 
   const addToFavorites = (movie) => {
@@ -19,6 +20,11 @@ const MoviesContextProvider = (props) => {
       newFavorites = [...favorites];
     }
     setFavorites(newFavorites)
+    if (getLogin()){
+      setMoviePlaylist(getEmail(), newFavorites)
+      console.log("old", favorites)
+      console.log("new",newFavorites)
+    }
   };
   
   // We will use this function in the next step

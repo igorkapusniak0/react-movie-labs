@@ -9,11 +9,12 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import Box from "@mui/material/Box";
 import { useNavigate } from "react-router-dom";
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { setlogin, getLogin, getUsername } from "../../user/user";
 
-const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
+const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 
 const SiteHeader = ({ history }) => {
   const [anchorElMedia, setAnchorElMedia] = useState(null);
@@ -27,20 +28,20 @@ const SiteHeader = ({ history }) => {
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-  
+
   const navigate = useNavigate();
 
   const menuMovieOptions = [
     { label: "Home", path: "/movies" },
     { label: "Favorites", path: "/movies/favorites" },
-    { label: "Upcomng", path: "/movies/upcoming" },
+    { label: "Upcoming", path: "/movies/upcoming" },
     { label: "Top Rated", path: "/movies/top_rated" },
   ];
 
   const menuShowOptions = [
     { label: "Home", path: "/shows" },
     { label: "Favorites", path: "/shows/favorites" },
-    { label: "Upcomng", path: "/shows/upcoming" },
+    { label: "Upcoming", path: "/shows/upcoming" },
     { label: "Top Rated", path: "/shows/top_rated" },
   ];
 
@@ -53,6 +54,22 @@ const SiteHeader = ({ history }) => {
     { label: "Login", path: "/login/" },
     { label: "Register", path: "/register/" },
   ];
+
+  const loggedIn = getLogin();
+  const username = getUsername();
+
+  const handleLogout = () => {
+    console.log("Logged Out")
+    setlogin(false); 
+    navigate("/movies");
+  };
+  
+  const loggedinOptions = [
+    { label: `Hi, ${username}`, path: "/profile/" },
+    { label: "Logout", onClick: handleLogout },
+  ];
+
+  
 
   const handleMenuSelect = (pageURL) => {
     navigate(pageURL, { replace: true });
@@ -80,149 +97,150 @@ const SiteHeader = ({ history }) => {
     setAnchorElMedia(event.currentTarget);
   };
 
-  const currentMenuOptions = selectedMedia === "Movies"? menuMovieOptions : menuShowOptions;
+  const currentMenuOptions = selectedMedia === "Movies" ? menuMovieOptions : menuShowOptions;
+  const currentLoginOptions = loggedIn ? loggedinOptions : loginOptions;
 
   return (
     <>
       <AppBar position="fixed" color="secondary">
         <Toolbar>
           <IconButton
-                  aria-label="menu"
-                  aria-controls="media-menu-appbar"
-                  aria-haspopup="true"
-                  onClick={handleMedia}
-                  color="inherit"
-                >
-                  <MenuIcon />
-                </IconButton>
-                <Menu
-                  id="media-menu-appbar"
-                  anchorEl={anchorElMedia}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={openMedia}
-                  onClose={() => setAnchorElMedia(null)}
-                >
-                  {mediaOptions.map((opt) => (
-                    <MenuItem
-                      key={opt.label}
-                      onClick={() => handleMediaSelect(opt.path, opt.label)}
-                    >
-                      {opt.label}
-                    </MenuItem>
-                  ))}
-                </Menu>
-          <Typography variant="h4" sx={{marginRight: "50px"}} >
+            aria-label="menu"
+            aria-controls="media-menu-appbar"
+            aria-haspopup="true"
+            onClick={handleMedia}
+            color="inherit"
+          >
+            <MenuIcon />
+          </IconButton>
+          <Menu
+            id="media-menu-appbar"
+            anchorEl={anchorElMedia}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            open={openMedia}
+            onClose={() => setAnchorElMedia(null)}
+          >
+            {mediaOptions.map((opt) => (
+              <MenuItem
+                key={opt.label}
+                onClick={() => handleMediaSelect(opt.path, opt.label)}
+              >
+                {opt.label}
+              </MenuItem>
+            ))}
+          </Menu>
+          <Typography variant="h4" sx={{ marginRight: "50px" }}>
             TMDB Client
           </Typography>
-          <Typography variant="h6" sx={{ justifyContent: 'left',flexGrow: 1 }}>
+          <Typography variant="h6" sx={{ justifyContent: "left", flexGrow: 1 }}>
             All you ever wanted to know about {selectedMedia}!
           </Typography>
-            {isMobile ? (
-              <>
-                <IconButton
-                  aria-label="menu"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  onClick={handleMenu}
-                  color="inherit"
-                >
-                  <MenuIcon />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorElMenu}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={openMenu}
-                  onClose={() => setAnchorElMenu(null)}
-                >
-                  {currentMenuOptions.map((opt) => (
-                    <MenuItem
-                      key={opt.label}
-                      onClick={() => handleMenuSelect(opt.path)}
-                    >
-                      {opt.label}
-                    </MenuItem>
-                  ))}
-                </Menu>
-              </>
-            ) : (
-              <Box sx={{ display: 'flex', justifyContent: 'left', flexGrow: 1 }}>
+          {isMobile ? (
+            <>
+              <IconButton
+                aria-label="menu"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElMenu}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={openMenu}
+                onClose={() => setAnchorElMenu(null)}
+              >
                 {currentMenuOptions.map((opt) => (
-                  <Button
+                  <MenuItem
                     key={opt.label}
-                    color="inherit"
                     onClick={() => handleMenuSelect(opt.path)}
                   >
-                  {opt.label}
-                  </Button>
+                    {opt.label}
+                  </MenuItem>
                 ))}
-              </Box>
-            )}
-             {isMobile ? (
-              <>
-                <IconButton
-                  aria-label="login"
-                  aria-controls="login-appbar"
-                  aria-haspopup="true"
-                  onClick={handleLogin}
+              </Menu>
+            </>
+          ) : (
+            <Box sx={{ display: "flex", justifyContent: "left", flexGrow: 1 }}>
+              {currentMenuOptions.map((opt) => (
+                <Button
+                  key={opt.label}
                   color="inherit"
+                  onClick={() => handleMenuSelect(opt.path)}
                 >
-                  <MenuIcon />
-                </IconButton>
-                <Menu
-                  id="login-appbar"
-                  anchorEl={anchorElLogin}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={openLogin}
-                  onClose={() => setAnchorElLogin(null)}
-                >
-                  {loginOptions.map((opt) => (
-                    <MenuItem
-                      key={opt.label}
-                      onClick={() => handleLoginSelect(opt.path)}
-                    >
-                      {opt.label}
-                    </MenuItem>
-                  ))}
-                </Menu>
-              </>
-            ) : (
-              <>
-                {loginOptions.map((opt) => (
-                  <Button
+                  {opt.label}
+                </Button>
+              ))}
+            </Box>
+          )}
+          {isMobile ? (
+            <>
+              <IconButton
+                aria-label="login"
+                aria-controls="login-appbar"
+                aria-haspopup="true"
+                onClick={handleLogin}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="login-appbar"
+                anchorEl={anchorElLogin}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={openLogin}
+                onClose={() => setAnchorElLogin(null)}
+              >
+                {currentLoginOptions.map((opt) => (
+                  <MenuItem
                     key={opt.label}
-                    color="inherit"
-                    onClick={() => handleLoginSelect(opt.path)}
+                    onClick={opt.onClick ? opt.onClick : () => handleLoginSelect(opt.path)}
                   >
                     {opt.label}
-                  </Button>
+                  </MenuItem>
                 ))}
-              </>
-            )}
+              </Menu>
+            </>
+          ) : (
+            <>
+              {currentLoginOptions.map((opt) => (
+                <Button
+                  key={opt.label}
+                  color="inherit"
+                  onClick={opt.onClick ? opt.onClick : () => handleLoginSelect(opt.path)}
+                >
+                  {opt.label}
+                </Button>
+              ))}
+            </>
+          )}
         </Toolbar>
       </AppBar>
       <Offset />

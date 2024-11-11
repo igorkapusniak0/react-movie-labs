@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { setShowPlaylist, getShowPlaylist } from "../api/db-api";
+import { getLogin, getEmail } from "../user/user";
+
 
 export const ShowsContext = React.createContext(null);
 
@@ -8,6 +10,8 @@ export const ShowsContext = React.createContext(null);
 const ShowsContextProvider = (props) => {
   const [favorites, setFavorites] = useState( [] )
   const [playlist, setPlaylist] = useState( [] )
+
+  
 
   const addToFavorites = (show) => {
     let newFavorites = [];
@@ -18,10 +22,12 @@ const ShowsContextProvider = (props) => {
       newFavorites = [...favorites];
     }
     setFavorites(newFavorites)
-   
-    setShowPlaylist("ikapusniak3@gmail.com", newFavorites)
-    console.log("old", favorites)
-    console.log("new",newFavorites)
+    if (getLogin()){
+      setShowPlaylist(getEmail(), newFavorites)
+      console.log("old", favorites)
+      console.log("new",newFavorites)
+    }
+    
   };
   
   // We will use this function in the next step

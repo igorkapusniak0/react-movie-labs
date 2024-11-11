@@ -8,6 +8,7 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../api/db-api";
+import { setEmail, setUsername, setlogin, setShowPlaylist, setMoviePlaylist } from "../../user/user";
 
 const styles = {
   root: {
@@ -64,10 +65,14 @@ const LoginForm = () => {
   const onSubmit = async (data) => {
     try {
         const result = await loginUser(data);
-        console.log(data)
-        console.log("result",result.loginStatus)
+        console.log(result)
         if (result) {
           setOpen(true);
+          setEmail(result.loginStatus.email);
+          setUsername(result.loginStatus.username);
+          setlogin(true);
+          setShowPlaylist(result.loginStatus.showPlaylist);
+          setMoviePlaylist(result.loginStatus.moviePlaylist);
           navigate("/movies");
         } else {
           console.error(result.message);
