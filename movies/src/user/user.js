@@ -1,5 +1,6 @@
 import { getMoviePlaylist, getShowPlaylist } from "../api/db-api";
 
+
 var userName = "";
 var email = "";
 var showPlaylist = null;
@@ -10,6 +11,7 @@ var login = false
 export function setlogin(data){
     if (data){
         login = data;
+        
     }else{
         userName = "";
         email = "";
@@ -26,9 +28,11 @@ export function getLogin(){
 
 export function setUsername(data){
     userName = data;
+    console.log("username",userName)
 }
 
 export function getUsername(){
+    console.log("username",userName)
     return userName;
 }
 

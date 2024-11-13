@@ -62,6 +62,7 @@ const SiteHeader = ({ history }) => {
     console.log("Logged Out")
     setlogin(false); 
     navigate("/movies");
+    navigate(0);
   };
   
   const loggedinOptions = [

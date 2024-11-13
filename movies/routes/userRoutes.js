@@ -19,7 +19,11 @@ module.exports = (db) => {
 
     try {
       const userId = await registerUser(req.body.username, req.body.email, req.body.password);
-      res.status(201).send({ userId });
+      console.log("data",req.body.email, req.body.password)
+      const loginStatus = await loginUser(req.body.email, req.body.password);
+
+      res.status(201).send({ loginStatus });
+      console.log(loginStatus);
     } catch (error) {
       res.status(500).send({ error: error.message });
     }

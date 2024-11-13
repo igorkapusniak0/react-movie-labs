@@ -8,6 +8,8 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../api/db-api.js"
+import { setEmail, setUsername, setlogin } from "../../user/user";
+
 
 const styles = {
   root: {
@@ -61,13 +63,17 @@ const RegisterForm = () => {
     reset,
   } = useForm(defaultValues);
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => { 
     try {
-        const result = registerUser(data);
-        if (result.success) {
-          setOpen(true);
-          navigate("/movies");
-        } else {
+      const result = await registerUser(data); 
+      if (result && result.loginStatus) {
+        setOpen(true);
+        console.log("result", result);
+        setEmail(result.loginStatus.email);
+        setUsername(result.loginStatus.username);
+        setlogin(true);
+        navigate("/movies");
+      } else {
           console.error(result.message);
         }
       } catch (error) {

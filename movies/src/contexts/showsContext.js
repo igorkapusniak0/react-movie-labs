@@ -5,13 +5,11 @@ import { getLogin, getEmail } from "../user/user";
 
 export const ShowsContext = React.createContext(null);
 
-
+let externalSetFavorites = null; 
 
 const ShowsContextProvider = (props) => {
   const [favorites, setFavorites] = useState( [] )
   const [playlist, setPlaylist] = useState( [] )
-
-  
 
   const addToFavorites = (show) => {
     let newFavorites = [];
@@ -28,6 +26,12 @@ const ShowsContextProvider = (props) => {
       console.log("new",newFavorites)
     }
     
+  };
+
+  externalSetFavorites = (fav) => {
+    console.log(fav)
+    setFavorites(fav);
+    console.log(fav)
   };
   
   // We will use this function in the next step
@@ -78,3 +82,12 @@ const addReview = (show, review) => {
 };
 
 export default ShowsContextProvider;
+
+
+export const updateFavoriteShows = (favorites) => {
+  console.log("before", favorites)
+  externalSetFavorites(favorites);
+  console.log("after", favorites)
+};
+
+

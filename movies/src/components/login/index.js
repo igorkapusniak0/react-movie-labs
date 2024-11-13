@@ -8,7 +8,9 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../api/db-api";
-import { setEmail, setUsername, setlogin, setShowPlaylist, setMoviePlaylist } from "../../user/user";
+import { setEmail, setUsername, setlogin, setShowPlaylist, setMoviePlaylist, getShowPlayList } from "../../user/user";
+import {updateFavoriteShows} from "../../contexts/showsContext";
+import {updateFavoriteMovies} from "../../contexts/moviesContext";
 
 const styles = {
   root: {
@@ -73,6 +75,8 @@ const LoginForm = () => {
           setlogin(true);
           setShowPlaylist(result.loginStatus.showPlaylist);
           setMoviePlaylist(result.loginStatus.moviePlaylist);
+          updateFavoriteShows(result.loginStatus.showPlaylist);
+          updateFavoriteMovies(result.loginStatus.moviePlaylist)
           navigate("/movies");
         } else {
           console.error(result.message);

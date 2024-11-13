@@ -5,6 +5,7 @@ import { getLogin, getEmail, getMoviePlayList } from "../user/user";
 
 export const MoviesContext = React.createContext(null);
 
+let externalSetFavorites = null; 
 
 
 const MoviesContextProvider = (props) => {
@@ -27,6 +28,12 @@ const MoviesContextProvider = (props) => {
     }
   };
   
+  externalSetFavorites = (fav) => {
+    console.log(fav)
+    setFavorites(fav);
+    console.log(fav)
+  };
+
   // We will use this function in the next step
   const removeFromFavorites = (movie) => {
     setFavorites( favorites.filter(
@@ -75,3 +82,9 @@ const addReview = (movie, review) => {
 };
 
 export default MoviesContextProvider;
+
+export const updateFavoriteMovies = (favorites) => {
+  console.log("before", favorites)
+  externalSetFavorites(favorites);
+  console.log("after", favorites)
+};
