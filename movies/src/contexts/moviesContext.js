@@ -85,6 +85,11 @@ export default MoviesContextProvider;
 
 export const updateFavoriteMovies = (favorites) => {
   console.log("before", favorites)
-  externalSetFavorites(favorites);
+  if (favorites == undefined){
+    externalSetFavorites([]);
+  }else{
+    externalSetFavorites(favorites);
+  }
+
   console.log("after", favorites)
 };

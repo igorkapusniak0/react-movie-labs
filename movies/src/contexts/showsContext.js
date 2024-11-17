@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { setShowPlaylist, getShowPlaylist } from "../api/db-api";
-import { getLogin, getEmail } from "../user/user";
+import { setShowPlaylist } from "../api/db-api";
+import { getLogin, getEmail, getShowPlayList } from "../user/user";
 
 
 export const ShowsContext = React.createContext(null);
@@ -8,7 +8,7 @@ export const ShowsContext = React.createContext(null);
 let externalSetFavorites = null; 
 
 const ShowsContextProvider = (props) => {
-  const [favorites, setFavorites] = useState( [] )
+  const [favorites, setFavorites] = useState( getShowPlayList() || [] )
   const [playlist, setPlaylist] = useState( [] )
 
   const addToFavorites = (show) => {
@@ -86,7 +86,11 @@ export default ShowsContextProvider;
 
 export const updateFavoriteShows = (favorites) => {
   console.log("before", favorites)
-  externalSetFavorites(favorites);
+  if (favorites == undefined){
+    externalSetFavorites([]);
+  }else{
+    externalSetFavorites(favorites);
+  }
   console.log("after", favorites)
 };
 
