@@ -4,6 +4,8 @@ import PageTemplate from '../components/templateShowListPage';
 import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
 import AddToPlaylistIcon from '../components/cardIconsShow/playlistAdd';
+import AddToFavoritesIcon from '../components/cardIconsShow/addToFavorites'
+
 
 const UpcomingShowsPage = (props) => {
 
@@ -30,7 +32,7 @@ const UpcomingShowsPage = (props) => {
       title="Upcoming Shows"
       shows={shows}
       action={(show) => {
-        return <AddToPlaylistIcon show={show} />
+        return <AddToFavoritesIcon show={show} />
       }}
     />
 );

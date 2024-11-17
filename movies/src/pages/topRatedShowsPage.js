@@ -4,6 +4,7 @@ import PageTemplate from '../components/templateShowListPage';
 import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
 import AddToPlaylistIcon from '../components/cardIconsShow/playlistAdd';
+import AddToFavoritesIcon from '../components/cardIconsShow/addToFavorites'
 
 const TopRatedShowsPage = (props) => {
 
@@ -30,7 +31,7 @@ const TopRatedShowsPage = (props) => {
       title="Top Rated Shows"
       shows={shows}
       action={(show) => {
-        return <AddToPlaylistIcon show={show} />
+        return <AddToFavoritesIcon show={show} />
       }}
     />
 );
