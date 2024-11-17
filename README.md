@@ -16,11 +16,14 @@ Coninuation of the movie Labs, with several new features added.
 + The Movies/Show details page additionally displays Where to Watch,Trailers, Cast, and Similar Movies/Shows.
 + Actors use the same card system as movies/shows and can be clicked for more details.
 + The Actors details page displays: General info and Movies/Shows they are in.
++ Added login and register feature which saves a users favorites array to mongodb.
 
 
 ## Setup requirements.
 
 npm install react-youtube
+npm istall express
+npm install bcrypt
 
 ## API endpoints.
 
@@ -43,6 +46,9 @@ npm install react-youtube
 + View a full show review - show_reviews/:id
 
 + Actor details - actors/:id
+
++ Login page - login/
++ Register page - register/ 
 
 ## Routing.
 
@@ -69,9 +75,8 @@ npm install react-youtube
 /movie_reviews/form
 
 /show_reviews/:id
-              <Route path="/show_reviews/form" element={<AddShowReviewPage /> } />
+/show_reviews/form
 
-              <Route path="/actors/:id" element={<ActorPage/>} />
 
 
 
@@ -80,6 +85,8 @@ npm install react-youtube
 ## Independent learning (If relevant).
 + React Youtube - https://www.npmjs.com/package/react-youtube
 + Sorting - https://owlcation.com/stem/creating-a-sortable-list-in-react-js
++ mongodb - NoSQL module
++ express - https://expressjs.com
 
 
 
