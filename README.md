@@ -24,6 +24,10 @@ Coninuation of the movie Labs, with several new features added.
 npm install react-youtube
 npm istall express
 npm install bcrypt
+Add this to your .env: DB_LINK=mongodb+srv://ikapusniak3:FHvLqayB72Ex2Ce@cluster0.7bf1c.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+or add your own mongodb link
+npm start
+node db_server.js
 
 ## API endpoints.
 
@@ -53,11 +57,6 @@ npm install bcrypt
 ## Routing.
 
 [ List the __new routes__ supported by your app and state the associated page.]
-
-+ /blogs - displays all published blogs.
-+ /blogs/:id - displays a particular blog.
-+ /blogs/:id/comments - detail view of a particular blog and its comments.
-+ etc.
 /movies/favorites
 /movies/:id
 /movies
@@ -93,3 +92,8 @@ npm install bcrypt
 Itemize the technologies/techniques you researched independently and adopted in your project, 
 i.e. aspects not covered in the lectures/labs. Include the source code filenames that illustrate these 
 (we do not require code excerpts) and provide references to the online resources that helped you (articles/blogs).
+
+src/api/db-api.js
+controller/userController.js
+routes/userRoutes.js
+db_server.js
